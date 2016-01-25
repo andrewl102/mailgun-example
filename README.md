@@ -1,30 +1,35 @@
+#Mailgun example
+
 Play! based implementation of a transaction email client using Mailgun.
 
-Instructions:
+##Instructions:
 
-Requirements:
+###Requirements:
 Apache Kafka (0.9.0 /w 2.11 was used for testing.)
 
-Running Kafka: (relies on wget, obtainable via Homebrew)
-wget 'http://www.us.apache.org/dist/kafka/0.9.0.0/kafka_2.11-0.9.0.0.tgz'
-tar xvfz kafka_2.11-0.9.0.0.tgz
+###Running Kafka: (relies on wget, obtainable via Homebrew)
+    wget 'http://www.us.apache.org/dist/kafka/0.9.0.0/kafka_2.11-0.9.0.0.tgz'
+    tar xvfz kafka_2.11-0.9.0.0.tgz
 
-cd kafka_2.11-0.9.0.0
+    cd kafka_2.11-0.9.0.0
+
 Kafka makes use of Apache ZooKeeper for load balancing / resilience etc.
 
 (Run each of the following commands in a separate command line tab)
-bin/zookeeper-server-start.sh config/zookeeper.properties
-bin/kafka-server-start.sh config/server.properties
-bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+    bin/zookeeper-server-start.sh config/zookeeper.properties
+    bin/kafka-server-start.sh config/server.properties
+    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
 
 Using the last tab, issue the following command:
-bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+    bin/kafka-topics.sh --list --zookeeper localhost:2181
 
 You should see test listed.
 
 Using the last tab, run
 
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 
 You now have a console to push JSON messages in to the queue to be read by the application.
 Please note that the console only supports single line messages, while the application itself is agnostic.
