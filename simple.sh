@@ -1,0 +1,1 @@
+curl -vX POST -u a:a http://localhost:9000/simple -d @$1 --header "Content-Type: application/json"
